@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Name-Based Flower · 52 gif magic</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #120b1a;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      position: relative;
+      color: #2e1b2b;
+      overflow-x: hidden;
+    }
+
+    /* SPARKLE MAGIC BACKGROUND (animated) */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(2px 2px at 15% 30%, #ffd9e8 100%, transparent),
+        radial-gradient(2px 2px at 72% 89%, #ffb3d2 100%, transparent),
+        radial-gradient(3px 3px at 23% 68%, #fff2b5 100%, transparent),
+        radial-gradient(4px 4px at 85% 12%, #b6dcff 100%, transparent),
+        radial-gradient(3px 3px at 42% 95%, #ffccf0 100%, transparent),
+        radial-gradient(5px 5px at 8% 47%, #ffb3ec 100%, transparent),
+        radial-gradient(3px 3px at 91% 55%, #fdffc4 100%, transparent),
+        radial-gradient(4px 4px at 33% 18%, #ffb7d1 100%, transparent),
+        radial-gradient(2px 2px at 57% 44%, #ffdbb5 100%, transparent),
+        radial-gradient(6px 6px at 79% 33%, #ffafef 100%, transparent);
+      background-size: 250% 250%;
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.8;
+      animation: shimmer 9s infinite alternate ease-in-out;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 30% 40%, rgba(255, 170, 200, 0.2) 0%, transparent 20%),
+        radial-gradient(circle at 80% 70%, rgba(255, 240, 160, 0.25) 0%, transparent 30%),
+        radial-gradient(circle at 10% 85%, #ffb7d9 0%, transparent 25%),
+        radial-gradient(circle at 95% 15%, #ffd2b5 0%, transparent 40%);
+      background-size: 200% 200%;
+      animation: drift 15s infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: soft-light;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% 0%; opacity: 0.6; }
+      50% { background-position: 15% 10%; opacity: 0.9; }
+      100% { background-position: 30% 20%; opacity: 0.7; }
+    }
+
+    @keyframes drift {
+      0% { transform: scale(1) translate(0%, 0%); }
+      100% { transform: scale(1.2) translate(2%, 3%); }
+    }
+
+    .card {
+      max-width: 760px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 42px;
+      box-shadow: 0 30px 60px -10px #b03f6b, 0 10px 30px rgba(255, 200, 235, 0.6);
+      padding: 2.2rem 2rem 2.5rem;
+      border: 2px solid rgba(255, 240, 245, 0.7);
+      position: relative;
+      z-index: 10;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(130deg, #c5376b, #ad3b79, #d43f6b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.15rem;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #5e3b50;
+      border-left: 4px solid #ff9ec6;
+      padding-left: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .field-label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #ac3865;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .field-row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .input-wrapper {
+      flex: 2 1 260px;
+    }
+
+    .text-input {
+      width: 100%;
+      padding: 0.85rem 1.4rem;
+      border-radius: 60px;
+      border: 2px solid #ffbed6;
+      background: #fff9fe;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.15s;
+      -webkit-appearance: none;
+    }
+
+    .text-input:focus {
+      border-color: #f2568d;
+      box-shadow: 0 0 0 4px #ffbfdd;
+    }
+
+    .btn {
+      background: #ff4d7a;
+      border: none;
+      padding: 0.85rem 2.2rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 10px 18px #ff95bc;
+      transition: 0.1s;
+      border: 1px solid #ffc0da;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:hover {
+      background: #ec3b68;
+      transform: scale(0.97);
+      box-shadow: 0 5px 12px #ff80af;
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .btn:disabled {
+      opacity: 0.35;
+      filter: grayscale(0.6);
+      pointer-events: none;
+    }
+
+    .assist-text {
+      margin: 0.5rem 0 1.8rem 0.2rem;
+      color: #775868;
+      font-size: 0.85rem;
+    }
+
+    .content-grid {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .preview-col {
+      flex: 2;
+      min-width: 280px;
+    }
+
+    .canvas-card {
+      background: #ffeef4;
+      border-radius: 28px;
+      padding: 0.7rem;
+      box-shadow: 0 8px 0 #d297b2, 0 12px 24px #eab9cf;
+    }
+
+    #bouquet-canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 24px;
+      background: #fee7f0;
+      box-shadow: inset 0 2px 6px white;
+    }
+
+    .info-col {
+      flex: 1.2;
+      min-width: 210px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .message-panel {
+      background: rgba(255, 245, 250, 0.8);
+      backdrop-filter: blur(4px);
+      border-radius: 28px;
+      padding: 1.2rem 1.2rem;
+      border: 2px solid #ffbfdb;
+      box-shadow: 0 8px 0 #bb7195;
+    }
+
+    .valentine-message {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #c22460;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    .hint-soft {
+      color: #7b4d6b;
+      font-size: 0.85rem;
+      margin-top: 0.2rem;
+    }
+
+    .action-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .btn-outline {
+      background: white;
+      border: 2px solid #ff8ebc;
+      color: #a72f5e;
+      box-shadow: 0 8px 0 #cf8daa, 0 6px 16px #ffb7cf;
+      font-weight: 600;
+    }
+
+    .btn-outline:hover {
+      background: #ffe3f0;
+    }
+
+    .music-row {
+      background: #fef0f5;
+      border-radius: 40px;
+      padding: 0.5rem 1rem 0.5rem 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 2px solid #ffb7cb;
+    }
+
+    .music-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #8a4468;
+    }
+
+    .toggle-btn {
+      background: #fff0f7;
+      border: 1px solid #fb9ec2;
+      border-radius: 30px;
+      padding: 0.3rem 1.2rem;
+      font-weight: 600;
+      color: #972954;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .toggle-btn[aria-pressed="true"] {
+      background: #ffb1cf;
+      color: #460025;
+      border-color: #ff2d78;
+    }
+
+    .extras-note {
+      font-size: 0.7rem;
+      color: #826277;
+    }
+
+    .gif-badge {
+      background: #f4e2ed;
+      border-radius: 30px;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      color: #602d4a;
+      border: 1px solid #ffb3c6;
+      text-align: center;
+    }
+
+    hr {
+      border: 2px dotted #ffb8d2;
+      margin: 1.6rem 0 0.4rem;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>HAPPY VALENTINES DAY</h1>
+  <div class="subtitle">Create a custom Valentine bouquet based on your name.</div>
+
+  <div>
+    <label class="field-label" for="name-input">Enter a name</label>
+    <div class="field-row">
+      <div class="input-wrapper">
+        <input id="name-input" class="text-input" type="text" placeholder="e.g. Alex" value="Alex" autocomplete="off" />
+      </div>
+      <button id="generate-btn" class="btn">SUBMIT</button>
+    </div>
+    <div class="assist-text">Enter a name to get your a unique bouquet/flower.</div>
+  </div>
+
+  <div class="content-grid">
+    <div class="preview-col">
+      <div class="canvas-card">
+        <canvas id="bouquet-canvas" width="600" height="400">canvas not supported</canvas>
+      </div>
+    </div>
+
+    <div class="info-col">
+      <div class="message-panel">
+        <div id="valentine-message" class="valentine-message">Happy Valentine's Day!</div>
+        <div class="hint-soft">Your bouquet will appear here after you enter a name</div>
+      </div>
+
+      <div class="action-stack">
+        <button id="download-btn" class="btn btn-outline" disabled>⬇ Download PNG</button>
+
+        
+        <div class="gif-badge">✨ 52 magical FLOWER/BOUQUET ✨</div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div style="text-align:center; font-size:0.7rem; color:#ab7897;">✨ tap download ✨</div>
+</div>
+
+<audio id="bg-music" src="https://cdn.pixabay.com/download/audio/2021/09/01/audio_b2e3c4bf4c.mp3?filename=romantic-melody-9892.mp3" loop></audio>
+
+<script>
+  (function() {
+    // ---------- CONFIG: 52 GIFs ----------
+    const TOTAL_GIFS = 52;
+
+    const nameInput = document.getElementById('name-input');
+    const generateBtn = document.getElementById('generate-btn');
+    const downloadBtn = document.getElementById('download-btn');
+    const canvas = document.getElementById('bouquet-canvas');
+    const ctx = canvas.getContext('2d');
+    const valentineMsg = document.getElementById('valentine-message');
+    const musicToggle = document.getElementById('music-toggle');
+    const bgMusic = document.getElementById('bg-music');
+
+    // Store the last used GIF for each name
+    function getLastGifForName(name) {
+      if (!name) return null;
+      try { return localStorage.getItem(`lastGif52_${name.toLowerCase().trim()}`); } catch { return null; }
+    }
+    
+    function setLastGifForName(name, gifName) {
+      if (!name) return;
+      try { localStorage.setItem(`lastGif52_${name.toLowerCase().trim()}`, gifName); } catch {}
+    }
+
+    // Pick a GIF with low repeat chance
+    function pickGifLowRepeat(name) {
+      const all = [];
+      for (let i = 1; i <= TOTAL_GIFS; i++) all.push(`${i}.gif`);
+      
+      const last = getLastGifForName(name);
+      if (!last) return all[Math.floor(Math.random() * all.length)];
+
+      const different = all.filter(g => g !== last);
+      if (different.length === 0) return last;
+      
+      return Math.random() < 0.7 
+        ? different[Math.floor(Math.random() * different.length)]
+        : last;
+    }
+
+    // Draw romantic background
+    function drawBackground() {
+      const grad = ctx.createLinearGradient(0, 0, canvas.width * 0.7, canvas.height);
+      grad.addColorStop(0, '#feedf5');
+      grad.addColorStop(0.6, '#ffddea');
+      grad.addColorStop(1, '#ffe5f0');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Sparkles
+      ctx.save();
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = '#ffacc7';
+      for (let i = 0; i < 22; i++) {
+        ctx.fillStyle = `rgba(255, 150, 200, ${0.15 + Math.random() * 0.2})`;
+        ctx.beginPath();
+        ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height * 0.7, 1 + Math.random() * 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // Ribbon
+      ctx.save();
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = '#ff86ac';
+      ctx.fillStyle = '#ffb7cd';
+      ctx.globalAlpha = 0.35;
+      ctx.beginPath();
+      ctx.ellipse(canvas.width / 2, canvas.height - 45, 110, 28, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 0.8;
+      ctx.fillStyle = '#ff8aa8';
+      ctx.shadowBlur = 14;
+      ctx.beginPath();
+      ctx.ellipse(canvas.width / 2, canvas.height - 50, 50, 12, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // Draw placeholder when GIF missing
+    function drawPlaceholder() {
+      drawBackground();
+      ctx.save();
+      ctx.font = '600 24px system-ui, sans-serif';
+      ctx.fillStyle = '#bb4477';
+      ctx.textAlign = 'center';
+      ctx.fillText('🌸 Valentine Flower', canvas.width / 2, canvas.height / 2 - 30);
+      ctx.font = '18px system-ui';
+      ctx.fillStyle = '#972e60';
+      ctx.fillText('Your special bouquet', canvas.width / 2, canvas.height / 2 + 20);
+      
+      // Draw decorative flowers
+      ctx.fillStyle = '#ff8aa8';
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = '#ff4d7a';
+      for (let i = 0; i < 6; i++) {
+        let angle = (i / 6) * Math.PI * 2;
+        let x = canvas.width / 2 + Math.cos(angle) * 45;
+        let y = canvas.height / 2 - 10 + Math.sin(angle) * 45;
+        ctx.beginPath();
+        ctx.arc(x, y, 18, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.fillStyle = '#ffecb3';
+      ctx.beginPath();
+      ctx.arc(canvas.width / 2, canvas.height / 2 - 10, 20, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // Draw the selected GIF
+    function drawGifOnCanvas(gifFile) {
+      const img = new Image();
+      
+      img.onload = () => {
+        drawBackground();
+        let targetHeight = canvas.height * 0.6;
+        let aspect = img.naturalWidth / img.naturalHeight;
+        let drawW = targetHeight * aspect;
+        let drawH = targetHeight;
+        let x = (canvas.width - drawW) / 2;
+        let y = canvas.height - drawH - 35;
+
+        ctx.save();
+        ctx.shadowBlur = 28;
+        ctx.shadowColor = '#f85f9e';
+        ctx.drawImage(img, x, y, drawW, drawH);
+        ctx.restore();
+      };
+      
+      img.onerror = () => {
+        drawPlaceholder();
+      };
+      
+      img.src = gifFile;
+    }
+
+    // Generate new bouquet
+    function generateBouquet() {
+      const rawName = nameInput.value.trim();
+      
+      if (!rawName) {
+        valentineMsg.innerText = 'Please enter a name';
+        downloadBtn.disabled = true;
+        drawBackground();
+        return;
+      }
+
+      valentineMsg.innerText = `✨ Generating...`;
+      downloadBtn.disabled = true;
+
+      const chosenGif = pickGifLowRepeat(rawName);
+      
+      setTimeout(() => {
+        drawGifOnCanvas(chosenGif);
+        setLastGifForName(rawName, chosenGif);
+        valentineMsg.innerText = `Happy Valentine's Day, ${rawName}!`;
+        downloadBtn.disabled = false;
+      }, 100);
+    }
+
+    // FIXED: Direct download using simple approach that works with or without GIFs
+    function downloadBouquet() {
+      const rawName = nameInput.value.trim() || 'Valentine';
+      
+      try {
+        // Create a new image by capturing the canvas AS IS
+        // This preserves whatever is currently shown (real GIF or placeholder)
+        
+        // Create a new canvas element
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = 600;
+        tempCanvas.height = 400;
+        const tempCtx = tempCanvas.getContext('2d');
+        
+        // Fill with white background first (ensures no transparency issues)
+        tempCtx.fillStyle = '#ffffff';
+        tempCtx.fillRect(0, 0, 600, 400);
+        
+        // Draw the main canvas content directly (this is the key - use the CANVAS, not the GIF source)
+        tempCtx.drawImage(canvas, 0, 0, 600, 400);
+        
+        // Add the Valentine message
+        tempCtx.font = 'bold 28px Arial, sans-serif';
+        tempCtx.textAlign = 'center';
+        tempCtx.fillStyle = '#c22460';
+        tempCtx.shadowBlur = 8;
+        tempCtx.shadowColor = '#ff99bb';
+        tempCtx.fillText(`Happy Valentine's Day, ${rawName}!`, 300, 370);
+        
+        // Convert to data URL
+        const dataURL = tempCanvas.toDataURL('image/png');
+        
+        // Simple download approach that works everywhere
+        const link = document.createElement('a');
+        link.download = `valentine_${rawName.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.png`;
+        link.href = dataURL;
+        link.style.display = 'none';
+        
+        // Add to body, click, remove
+        document.body.appendChild(link);
+        link.click();
+        
+        // Clean up after a small delay
+        setTimeout(() => {
+          document.body.removeChild(link);
+        }, 100);
+        
+        // Show success message
+        valentineMsg.innerText = '✅ Download started!';
+        setTimeout(() => {
+          valentineMsg.innerText = `Happy Valentine's Day, ${rawName}!`;
+        }, 2000);
+        
+      } catch (error) {
+        // Fallback for any issues
+        alert('Tap and hold the image to save it or screenshot it');
+        
+        // Open in new tab as last resort
+        const dataURL = canvas.toDataURL('image/png');
+        window.open(dataURL, '_blank');
+      }
+    }
+
+    // Music toggle
+    function toggleMusic() {
+      if (bgMusic.paused) {
+        bgMusic.play().catch(() => {
+          // Silent fail - user needs to interact first
+        });
+        musicToggle.setAttribute('aria-pressed', 'true');
+        musicToggle.innerText = 'on';
+      } else {
+        bgMusic.pause();
+        musicToggle.setAttribute('aria-pressed', 'false');
+        musicToggle.innerText = 'off';
+      }
+    }
+
+    // Event listeners with preventDefault
+    generateBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      generateBouquet();
+    });
+
+    nameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        generateBouquet();
+      }
+    });
+
+    // SIMPLE: One clean download handler
+    downloadBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      downloadBouquet();
+    });
+
+    // Mobile touch support
+    downloadBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      downloadBouquet();
+    });
+
+    musicToggle.addEventListener('click', toggleMusic);
+
+    // Initialize
+    generateBouquet();
+  })();
+</script>
+</body>
+</html>

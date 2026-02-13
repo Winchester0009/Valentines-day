@@ -1,0 +1,36 @@
+Name-Based Flower Generator – Design &
+Responsive Specification
+1. UI Design Overview
+Soft Valentine theme using pink, red, cream tones. Rounded cards, flower illustrations, and heart
+accents.
+2. Page Sections
+• Header with title and subtitle
+• Name input field
+• Generate button
+• Result preview section
+• Download button
+3. Responsive Design Rules
+Mobile-first layout
+• Single column on mobile
+• Centered elements
+• Scalable images using max-width: 100%
+• Buttons full-width on small screens
+Tablet & Desktop
+• Centered card layout
+• Image and text side-by-side
+• Max container width: 900px
+4. Flower Generation Logic
+Each alphabet letter maps to a unique flower. User name is parsed and flowers are combined into
+one bouquet image.
+5. Cached Result Logic
+If a name already exists, load saved flower image instead of regenerating.
+6. Valentine Message
+Automatically displays: Happy Valentine’s Day, [Name]!
+7. Download Feature
+Generated image downloadable as PNG with filename: Valentines_Flower_[Name].png
+8. Accessibility
+• Large readable fonts
+• High contrast text
+• Touch-friendly buttons
+9. Optional Enhancements
+Animations, background music, sharing features
